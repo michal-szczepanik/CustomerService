@@ -1,13 +1,13 @@
 ﻿using CustomerService.Api.Abstract;
 using CustomerService.Api.Filters;
-using CustomerService.Api.Models;
+using CustomerService.Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace CustomerService.Api.Controllers
 {
-    [Route("api/customer")]
-    public class CustomerController : ControllerBase
+    [Route("customer")]
+    public class CustomerController : Controller
     {
         private readonly ICustomerService customerService;
 
@@ -17,28 +17,42 @@ namespace CustomerService.Api.Controllers
         }
 
         [HttpGet]
-        [Route("get")]
-        public async Task<IActionResult> GetCustomers()
+        [Route("index")]
+        public async Task<IActionResult> Index()
         {
             var result = await customerService.GetCustomersAsync();
 
-            return Ok(result);
+            return View(result);
+        }
+
+        [HttpGet]
+        [Route("add")]
+        public IActionResult AddCustomer()
+        {
+            return View();
         }
 
         [HttpPost]
         [Route("add")]
         [ValidateModelFilter]
-        public async Task<IActionResult> AddCustomer([FromBody]AddCustomerModel model)
+        public async Task<IActionResult> AddCustomer([FromBody]AddCustomerViewModel model)
         {
             var result = await customerService.AddCustomerAsync(model);
 
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("edit")]
+        public IActionResult EditCustomer()
+        {
+            return Ok();
+        }
+
         [HttpPut]
         [Route("edit")]
         [ValidateModelFilter]
-        public async Task<IActionResult> EditCustomer([FromBody]EditCustomerModel model)
+        public async Task<IActionResult> EditCustomer([FromBody]EditCustomerViewModel model)
         {
             var result = await customerService.EditCustomerAsync(model);
 
@@ -47,7 +61,6 @@ namespace CustomerService.Api.Controllers
 
         [HttpDelete]
         [Route("remove/{id}")]
-        [ValidateModelFilter]
         public async Task<IActionResult> RemoveCustomer(string id)
         {
             var result = await customerService.RemoveCustomerAsync(id);

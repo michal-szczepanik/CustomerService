@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CustomerService.Api.Models
+namespace CustomerService.Api.ViewModels
 {
-    public class EditCustomerModel
+    public class AddCustomerViewModel
     {
-        [Required]
-        public string Id { get; set; }
-
         [Required]
         public string Name { get; set; }
 

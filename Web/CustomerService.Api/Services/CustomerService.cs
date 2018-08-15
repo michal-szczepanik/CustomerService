@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CustomerService.Api.Abstract;
-using CustomerService.Api.Models;
+using CustomerService.Api.ViewModels;
 using CustomerService.DAL.Repositories.Abstract;
 using CustomerService.Api.Mappers;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace CustomerService.Api.Services
             this.customerRepository = customerRepository;
         }
 
-        public async Task<IEnumerable<CustomerModel>> GetCustomersAsync()
+        public async Task<CustomersViewModel> GetCustomersAsync()
         {
             var customers = await customerRepository.GetCustomersAsync();
 
@@ -25,7 +25,7 @@ namespace CustomerService.Api.Services
             return result;
         }
 
-        public async Task<CustomerModel> AddCustomerAsync(AddCustomerModel model)
+        public async Task<CustomerViewModel> AddCustomerAsync(AddCustomerViewModel model)
         {
             var customerEntity = CustomerMapper.Map(model);
 
@@ -36,7 +36,7 @@ namespace CustomerService.Api.Services
             return result;
         }
 
-        public async Task<CustomerModel> EditCustomerAsync(EditCustomerModel model)
+        public async Task<CustomerViewModel> EditCustomerAsync(EditCustomerViewModel model)
         {
             var customerEntity = CustomerMapper.Map(model);
 

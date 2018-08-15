@@ -1,4 +1,4 @@
-﻿using CustomerService.Api.Models;
+﻿using CustomerService.Api.ViewModels;
 using CustomerService.DAL.Entities;
 using System.Collections.Generic;
 
@@ -6,7 +6,7 @@ namespace CustomerService.Api.Mappers
 {
     public static class CustomerMapper
     {
-        public static Customer Map(AddCustomerModel customer)
+        public static Customer Map(AddCustomerViewModel customer)
         {
             return new Customer
             {
@@ -17,9 +17,9 @@ namespace CustomerService.Api.Mappers
             };
         }
 
-        public static CustomerModel Map(Customer customer)
+        public static CustomerViewModel Map(Customer customer)
         {
-            return new CustomerModel
+            return new CustomerViewModel
             {
                 Id = customer.Id,
                 Name = customer.Name,
@@ -29,7 +29,7 @@ namespace CustomerService.Api.Mappers
             };
         }
 
-        public static Customer Map(EditCustomerModel customer)
+        public static Customer Map(EditCustomerViewModel customer)
         {
             return new Customer
             {
@@ -41,9 +41,9 @@ namespace CustomerService.Api.Mappers
             };
         }
 
-        public static IEnumerable<CustomerModel> Map(IEnumerable<Customer> customers)
+        public static CustomersViewModel Map(IEnumerable<Customer> customers)
         {
-            var model = new List<CustomerModel>();
+            var model = new List<CustomerViewModel>();
 
             foreach (var customer in customers)
             {
@@ -51,7 +51,10 @@ namespace CustomerService.Api.Mappers
                 model.Add(mappedCustomer);
             }
 
-            return model;
+            return new CustomersViewModel
+            {
+                Customers = model
+            };
         }
     }
 }
