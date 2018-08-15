@@ -37,9 +37,9 @@ namespace CustomerService.Api.Services
             return result;
         }
 
-        public async Task<bool> RemoveCustomerAsync(string id)
+        public Task<bool> RemoveCustomerAsync(string id)
         {
-            var result = await customerRepository.DeleteCustomerAsync(id);
+            return customerRepository.DeleteCustomerAsync(id);
         }
     }
 }
