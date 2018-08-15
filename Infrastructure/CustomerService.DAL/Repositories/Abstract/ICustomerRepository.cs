@@ -6,6 +6,8 @@ namespace CustomerService.DAL.Repositories.Abstract
 {
     public interface ICustomerRepository
     {
+        Task<Customer> GetCustomerAsync(string id);
+
         Task<IEnumerable<Customer>> GetCustomersAsync();
 
         Task<Customer> AddCustomerAsync(Customer customer);

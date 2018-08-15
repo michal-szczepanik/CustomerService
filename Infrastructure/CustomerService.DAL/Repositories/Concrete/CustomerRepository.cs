@@ -40,7 +40,10 @@ namespace CustomerService.DAL.Repositories.Concrete
                     return null;
                 }
 
-                entity = customer;
+                entity.Name = customer.Name;
+                entity.Surname = customer.Surname;
+                entity.TelephoneNumber = customer.TelephoneNumber;
+                entity.Address = customer.Address;
 
                 await ctx.SaveChangesAsync();
 
@@ -64,6 +67,14 @@ namespace CustomerService.DAL.Repositories.Concrete
                 await ctx.SaveChangesAsync();
 
                 return true;
+            }
+        }
+
+        public async Task<Customer> GetCustomerAsync(string id)
+        {
+            using (var ctx = new CustomerServiceContext())
+            {
+                return await ctx.Customers.FirstOrDefaultAsync(x => x.Id == id);
             }
         }
     }

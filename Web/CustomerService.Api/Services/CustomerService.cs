@@ -51,5 +51,14 @@ namespace CustomerService.Api.Services
         {
             return customerRepository.DeleteCustomerAsync(id);
         }
+
+        public async Task<EditCustomerViewModel> GetCustomerAsync(string id)
+        {
+            var customer = await customerRepository.GetCustomerAsync(id);
+
+            var model = CustomerMapper.MapToEditCustomerViewModel(customer);
+
+            return model;
+        }
     }
 }

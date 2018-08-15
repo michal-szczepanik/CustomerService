@@ -29,6 +29,18 @@ namespace CustomerService.Api.Mappers
             };
         }
 
+        public static EditCustomerViewModel MapToEditCustomerViewModel(Customer customer)
+        {
+            return new EditCustomerViewModel
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Surname = customer.Surname,
+                TelephoneNumber = customer.TelephoneNumber,
+                Address = customer.Address
+            };
+        }
+
         public static Customer Map(EditCustomerViewModel customer)
         {
             return new Customer

@@ -39,30 +39,26 @@ namespace CustomerService.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit(string id)
         {
-            return Ok();
+            var model = await customerService.GetCustomerAsync(id);
+
+            return View(model);
         }
 
-        [HttpPut]
+        [HttpPost]
         [ValidateModelFilter]
-        public async Task<IActionResult> Edit([FromBody]EditCustomerViewModel model)
+        public async Task<IActionResult> Edit([FromForm]EditCustomerViewModel model)
         {
             var result = await customerService.EditCustomerAsync(model);
 
-            return Ok(result);
+            return RedirectToAction("Index");
         }
 
         [HttpDelete]
-        //[Route("customer/remove/{id}")]
         public async Task<IActionResult> Remove(string id)
         {
-            var result = await customerService.RemoveCustomerAsync(id);
-
-            if (!result)
-            {
-                return BadRequest();
-            }
+            await customerService.RemoveCustomerAsync(id);
 
             var model = await customerService.GetCustomersAsync();
             model.IsCustomerRemoved = true;

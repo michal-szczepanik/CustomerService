@@ -4,6 +4,7 @@
 
 @Html.HiddenFor(model => model.IsCustomerRemoved)
 <p class="uk-margin-small-bottom">Number of customers: @Model.Customers.Count()</p>
+<hr>
 
 <dl class="uk-description-list uk-description-list-divider">
     @foreach (var customer in Model.Customers)
@@ -17,8 +18,8 @@
                     </div>
                     <div class="uk-width-1-3">
                         <ul class="uk-iconnav">
-                            <li><a href="Edit" uk-icon="icon: file-edit" uk-tooltip="Edit customer"></a></li>
-                            <li><button id="remove-modal-confirm" customer-id="@customer.Id" uk-icon="icon: trash" uk-tooltip="Remove customer"></button></li>
+                            <li><a href="/Customer/Edit/@customer.Id" uk-icon="icon: file-edit" uk-tooltip="Edit customer"></a></li>
+                            <li><a id="remove-modal-confirm" customer-id="@customer.Id" uk-icon="icon: trash" uk-tooltip="Remove customer"></a></li>
                         </ul>
                     </div>
                 </div>
