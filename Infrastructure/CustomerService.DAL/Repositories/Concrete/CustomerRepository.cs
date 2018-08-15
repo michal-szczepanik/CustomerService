@@ -1,5 +1,4 @@
 ﻿using CustomerService.DAL.Repositories.Abstract;
-using System;
 using CustomerService.DAL.Entities;
 using System.Threading.Tasks;
 using System.Linq;
@@ -36,6 +35,25 @@ namespace CustomerService.DAL.Repositories.Concrete
                 await ctx.SaveChangesAsync();
 
                 return customer;
+            }
+        }
+
+        public async Task<bool> DeleteCustomerAsync(string id)
+        {
+            using (var ctx = new CustomerServiceContext())
+            {
+                var entity = ctx.Customers.FirstOrDefault(x => x.Id == id);
+
+                if (entity == null)
+                {
+                    return false;
+                }
+
+                ctx.Customers.Remove(entity);
+
+                await ctx.SaveChangesAsync();
+
+                return true;
             }
         }
     }

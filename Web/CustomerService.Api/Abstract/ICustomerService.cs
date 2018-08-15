@@ -8,5 +8,7 @@ namespace CustomerService.Api.Abstract
         Task<CustomerModel> AddCustomerAsync(AddCustomerModel model);
 
         Task<CustomerModel> EditCustomerAsync(EditCustomerModel model);
+
+        Task<bool> RemoveCustomerAsync(string id);
     }
 }
