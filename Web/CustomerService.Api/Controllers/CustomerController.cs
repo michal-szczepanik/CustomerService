@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace CustomerService.Api.Controllers
 {
-    [Route("customer")]
     public class CustomerController : Controller
     {
         private readonly ICustomerService customerService;
@@ -17,7 +16,6 @@ namespace CustomerService.Api.Controllers
         }
 
         [HttpGet]
-        [Route("index")]
         public async Task<IActionResult> Index()
         {
             var result = await customerService.GetCustomersAsync();
@@ -26,32 +24,29 @@ namespace CustomerService.Api.Controllers
         }
 
         [HttpGet]
-        [Route("add")]
-        public IActionResult AddCustomer()
+        public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("add")]
         [ValidateModelFilter]
-        public async Task<IActionResult> AddCustomer([FromForm]AddCustomerViewModel model)
+        public async Task<IActionResult> Add([FromForm]AddCustomerViewModel model)
         {
             var result = await customerService.AddCustomerAsync(model);
 
             return RedirectToAction("Index");
         }
 
-        [Route("edit")]
-        public IActionResult EditCustomer()
+        [HttpGet]
+        public IActionResult Edit()
         {
             return Ok();
         }
 
         [HttpPut]
-        [Route("edit")]
         [ValidateModelFilter]
-        public async Task<IActionResult> EditCustomer([FromBody]EditCustomerViewModel model)
+        public async Task<IActionResult> Edit([FromBody]EditCustomerViewModel model)
         {
             var result = await customerService.EditCustomerAsync(model);
 
@@ -59,12 +54,12 @@ namespace CustomerService.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("remove/{id}")]
-        public async Task<IActionResult> RemoveCustomer(string id)
+        //[Route("customer/remove/{id}")]
+        public async Task<IActionResult> Remove(string id)
         {
             var result = await customerService.RemoveCustomerAsync(id);
 
-            if(!result)
+            if (!result)
             {
                 return BadRequest();
             }

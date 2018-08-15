@@ -16,8 +16,9 @@
     <nav class="uk-navbar-container uk-margin" uk-navbar>
         <div class="uk-navbar-center">
             <ul class="uk-navbar-nav">
-                <li class="uk-active"><a href="Index">Customers</a></li>
-                <li><a href="Add">Add customer</a></li>
+                <li class="uk-active">@Html.ActionLink("Customer", "Index", "Customer")</li>
+                <li>@Html.ActionLink("Add customer", "Add", "Customer")</li>
+                <li>@Html.ActionLink("Info", "Index", "Info")</li>
             </ul>
         </div>
     </nav>

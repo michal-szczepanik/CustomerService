@@ -17,7 +17,8 @@ namespace CustomerService.Api
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ICustomerService, Services.CustomerService>();
 
-            services.AddMvc(options => options.Filters.Add(typeof(ApiExceptionFilterAttribute)));
+            services.AddMvc(options => options.Filters.Add(typeof(ApiExceptionFilterAttribute)))
+                    .AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Customer/Index", ""));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,12 +30,7 @@ namespace CustomerService.Api
             }
 
             app.UseStaticFiles();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Customer}/{action=Index}/{id?}");
-            });
+            app.UseMvc(routes => routes.MapRoute(name: "default", template: "{controller=Customer}/{action=Index}/{id?}"));
         }
     }
 }
