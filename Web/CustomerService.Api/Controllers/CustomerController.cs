@@ -36,6 +36,21 @@ namespace CustomerService.Api.Controllers
             return Ok(result);
         }
 
+        [HttpDelete]
+        [Route("remove/{id}")]
+        [ValidateModelFilter]
+        public async Task<IActionResult> RemoveCustomer(string id)
+        {
+            var result = await customerService.RemoveCustomerAsync(id);
+
+            if(!result)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
