@@ -35,14 +35,13 @@ namespace CustomerService.Api.Controllers
         [HttpPost]
         [Route("add")]
         [ValidateModelFilter]
-        public async Task<IActionResult> AddCustomer([FromBody]AddCustomerViewModel model)
+        public async Task<IActionResult> AddCustomer([FromForm]AddCustomerViewModel model)
         {
             var result = await customerService.AddCustomerAsync(model);
 
-            return Ok(result);
+            return RedirectToAction("Index");
         }
 
-        [HttpGet]
         [Route("edit")]
         public IActionResult EditCustomer()
         {
@@ -70,7 +69,10 @@ namespace CustomerService.Api.Controllers
                 return BadRequest();
             }
 
-            return Ok();
+            var model = await customerService.GetCustomersAsync();
+            model.IsCustomerRemoved = true;
+
+            return View("_CustomersList", model);
         }
     }
 }
