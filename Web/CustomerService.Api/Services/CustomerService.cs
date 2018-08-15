@@ -3,6 +3,7 @@ using CustomerService.Api.Abstract;
 using CustomerService.Api.Models;
 using CustomerService.DAL.Repositories.Abstract;
 using CustomerService.Api.Mappers;
+using System.Collections.Generic;
 
 namespace CustomerService.Api.Services
 {
@@ -13,6 +14,15 @@ namespace CustomerService.Api.Services
         public CustomerService(ICustomerRepository customerRepository)
         {
             this.customerRepository = customerRepository;
+        }
+
+        public async Task<IEnumerable<CustomerModel>> GetCustomersAsync()
+        {
+            var customers = await customerRepository.GetCustomersAsync();
+
+            var result = CustomerMapper.Map(customers);
+
+            return result;
         }
 
         public async Task<CustomerModel> AddCustomerAsync(AddCustomerModel model)

@@ -1,5 +1,6 @@
 ﻿using CustomerService.Api.Models;
 using CustomerService.DAL.Entities;
+using System.Collections.Generic;
 
 namespace CustomerService.Api.Mappers
 {
@@ -38,6 +39,19 @@ namespace CustomerService.Api.Mappers
                 Address = customer.Address,
                 TelephoneNumber = customer.TelephoneNumber
             };
+        }
+
+        public static IEnumerable<CustomerModel> Map(IEnumerable<Customer> customers)
+        {
+            var model = new List<CustomerModel>();
+
+            foreach (var customer in customers)
+            {
+                var mappedCustomer = Map(customer);
+                model.Add(mappedCustomer);
+            }
+
+            return model;
         }
     }
 }

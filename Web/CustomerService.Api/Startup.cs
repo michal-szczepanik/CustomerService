@@ -32,7 +32,7 @@ namespace CustomerService.Api
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "api/{controller=Customer}/{action=Index}/{id?}");
+                    template: "api/{controller=Customer}/{action=GetCustomers}/{id?}");
             });
         }
     }

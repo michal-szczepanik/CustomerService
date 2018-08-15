@@ -16,6 +16,15 @@ namespace CustomerService.Api.Controllers
             this.customerService = customerService;
         }
 
+        [HttpGet]
+        [Route("get")]
+        public async Task<IActionResult> GetCustomers()
+        {
+            var result = await customerService.GetCustomersAsync();
+
+            return Ok(result);
+        }
+
         [HttpPost]
         [Route("add")]
         [ValidateModelFilter]
@@ -48,12 +57,6 @@ namespace CustomerService.Api.Controllers
                 return BadRequest();
             }
 
-            return Ok();
-        }
-
-        [HttpGet]
-        public IActionResult Index()
-        {
             return Ok();
         }
     }

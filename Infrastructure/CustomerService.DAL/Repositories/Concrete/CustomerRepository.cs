@@ -2,11 +2,21 @@
 using CustomerService.DAL.Entities;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomerService.DAL.Repositories.Concrete
 {
     public class CustomerRepository : ICustomerRepository
     {
+        public async Task<IEnumerable<Customer>> GetCustomersAsync()
+        {
+            using (var ctx = new CustomerServiceContext())
+            {
+                return await ctx.Customers.ToListAsync();
+            }
+        }
+
         public async Task<Customer> AddCustomerAsync(Customer customer)
         {
             using (var ctx = new CustomerServiceContext())
