@@ -7,6 +7,6 @@ namespace CustomerService.DAL.Repositories.Abstract
     {
         Task<Customer> AddCustomerAsync(Customer customer);
 
-        Customer EditCustomer(Customer customer);
+        Task<Customer> EditCustomerAsync(Customer customer);
     }
 }

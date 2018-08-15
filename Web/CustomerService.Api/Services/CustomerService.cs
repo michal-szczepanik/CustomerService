@@ -25,5 +25,16 @@ namespace CustomerService.Api.Services
 
             return result;
         }
+
+        public Task<CustomerModel> EditCustomerAsync(EditCustomerModel model)
+        {
+            var customerEntity = CustomerMapper.Map(model);
+
+            var customer = await customerRepository.EditCustomerAsync(customerEntity);
+
+            var result = CustomerMapper.Map(customer);
+
+            return result;
+        }
     }
 }

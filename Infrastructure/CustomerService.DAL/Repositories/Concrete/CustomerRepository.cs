@@ -2,6 +2,7 @@
 using System;
 using CustomerService.DAL.Entities;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace CustomerService.DAL.Repositories.Concrete
 {
@@ -19,9 +20,23 @@ namespace CustomerService.DAL.Repositories.Concrete
             }
         }
 
-        public Customer EditCustomer(Customer customer)
+        public async Task<Customer> EditCustomerAsync(Customer customer)
         {
-            throw new NotImplementedException();
+            using (var ctx = new CustomerServiceContext())
+            {
+                var entity = ctx.Customers.FirstOrDefault(x => x.Id == customer.Id);
+
+                if(entity == null)
+                {
+                    return null;
+                }
+
+                entity = customer;
+
+                await ctx.SaveChangesAsync();
+
+                return customer;
+            }
         }
     }
 }

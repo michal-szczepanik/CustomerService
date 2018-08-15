@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using CustomerService.Api.Filters;
+using CustomerService.DAL.Repositories.Abstract;
+using CustomerService.DAL.Repositories.Concrete;
+using CustomerService.Api.Abstract;
 
 namespace CustomerService.Api
 {
@@ -15,6 +15,10 @@ namespace CustomerService.Api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<ICustomerService, Services.CustomerService>();
+
+            services.AddMvc(options => options.Filters.Add(typeof(ApiExceptionFilterAttribute)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,9 +29,11 @@ namespace CustomerService.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.UseMvc(routes =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "default",
+                    template: "api/{controller=Customer}/{action=Index}/{id?}");
             });
         }
     }

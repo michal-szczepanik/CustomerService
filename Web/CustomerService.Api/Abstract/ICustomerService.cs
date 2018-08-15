@@ -6,5 +6,7 @@ namespace CustomerService.Api.Abstract
     public interface ICustomerService
     {
         Task<CustomerModel> AddCustomerAsync(AddCustomerModel model);
+
+        Task<CustomerModel> EditCustomerAsync(EditCustomerModel model);
     }
 }

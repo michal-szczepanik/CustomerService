@@ -27,5 +27,17 @@ namespace CustomerService.Api.Mappers
                 Address = customer.Address
             };
         }
+
+        public static Customer Map(EditCustomerModel customer)
+        {
+            return new Customer
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Surname = customer.Surname,
+                Address = customer.Address,
+                TelephoneNumber = customer.TelephoneNumber
+            };
+        }
     }
 }

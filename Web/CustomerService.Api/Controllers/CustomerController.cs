@@ -1,13 +1,13 @@
-﻿using CustomerService.Api.Models;
+﻿using CustomerService.Api.Abstract;
 using CustomerService.Api.Filters;
-using System.Web.Http;
-using CustomerService.Api.Abstract;
+using CustomerService.Api.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace CustomerService.Api.Controllers
 {
-    [RoutePrefix("api/customer")]
-    public class CustomerController : ApiController
+    [Route("api/customer")]
+    public class CustomerController : ControllerBase
     {
         private readonly ICustomerService customerService;
 
@@ -19,11 +19,27 @@ namespace CustomerService.Api.Controllers
         [HttpPost]
         [Route("add")]
         [ValidateModelFilter]
-        public async Task<IHttpActionResult> AddCustomer([FromBody]AddCustomerModel model)
+        public async Task<IActionResult> AddCustomer([FromBody]AddCustomerModel model)
         {
             var result = await customerService.AddCustomerAsync(model);
 
             return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("edit")]
+        [ValidateModelFilter]
+        public async Task<IActionResult> EditCustomer([FromBody]EditCustomerModel model)
+        {
+            var result = await customerService.EditCustomerAsync(model);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return Ok();
         }
     }
 }

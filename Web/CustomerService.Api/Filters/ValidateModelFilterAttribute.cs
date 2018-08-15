@@ -5,7 +5,7 @@ using System.Web.Http.Filters;
 
 namespace CustomerService.Api.Filters
 {
-    public class ValidateModelFilter : ActionFilterAttribute
+    public class ValidateModelFilterAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
