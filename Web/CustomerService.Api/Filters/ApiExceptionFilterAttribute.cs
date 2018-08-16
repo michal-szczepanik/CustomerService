@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerService.Api.Filters
 {
@@ -17,11 +17,7 @@ namespace CustomerService.Api.Filters
         {
             logger.LogCritical(context.Exception.ToString());
 
-            //context.Result = context.Exception is ArgumentException
-            //    ? View("")
-            //    : View("");
-
-
+            context.Result = new ViewResult { ViewName = "Error" };
         }
     }
 }
