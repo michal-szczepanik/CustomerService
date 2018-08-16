@@ -5,13 +5,11 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{B0468AD8-CD77-4CC7-9054-99DDAE00A871}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{6B9B5723-CC72-45EF-833A-C35D46EEEB7A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{63462340-A936-4F28-8535-642E056C7677}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.DAL", "Infrastructure\CustomerService.DAL\CustomerService.DAL.csproj", "{2585E7AA-4C49-46A4-9599-347745F452C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerService.Api", "Web\CustomerService.Api\CustomerService.Api.csproj", "{B1A8FD09-E999-4BC5-971D-6360D29ACEC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerService.Api", "Web\CustomerService.Api\CustomerService.Api.csproj", "{B1A8FD09-E999-4BC5-971D-6360D29ACEC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
