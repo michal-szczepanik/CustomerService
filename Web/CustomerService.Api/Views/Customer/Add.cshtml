@@ -6,31 +6,41 @@
 
 <form asp-action="add" method="post">
     <fieldset class="uk-fieldset">
+
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-select"></label>
-            <input class="uk-input" type="text" name="Name" placeholder="Name">
+            <div class="uk-margin-small-top uk-margin-small-bottom">
+                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "uk-text-danger" })
+            </div>
+            @Html.TextBoxFor(model => model.Name, null, new { @class = "uk-input", placeholder = "Name" })
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-select"></label>
-            <input class="uk-input" type="text" name="Surname" placeholder="Surname">
+            <div class="uk-margin-small-top uk-margin-small-bottom">
+                @Html.ValidationMessageFor(model => model.Surname, null, new { @class = "uk-text-danger" })
+            </div>
+            @Html.TextBoxFor(model => model.Surname, null, new { @class = "uk-input", placeholder = "Surname" })
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-select"></label>
-            <input class="uk-input" type="text" name="TelephoneNumber" placeholder="Telephone number">
+            <div class="uk-margin-small-top uk-margin-small-bottom">
+                @Html.ValidationMessageFor(model => model.TelephoneNumber, null, new { @class = "uk-text-danger" })
+            </div>
+            @Html.TextBoxFor(model => model.TelephoneNumber, null, new { @class = "uk-input", placeholder = "Telephone number" })
         </div>
 
         <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-select"></label>
-            <input class="uk-input" type="text" name="Address" placeholder="Address">
+            <div class="uk-margin-small-top uk-margin-small-bottom">
+                @Html.ValidationMessageFor(model => model.Address, null, new { @class = "uk-text-danger" })
+            </div>
+            @Html.TextBoxFor(model => model.Address, null, new { @class = "uk-input", placeholder = "Address" })
         </div>
 
         <div class="uk-margin-medium-top">
             <input type="submit" value="Add" class="uk-button uk-button-default" />
         </div>
+
         <div class="uk-margin-medium-top">
-            <a class="uk-link-muted" asp-action="Index">Go back</a>
+            <a class="uk-link-muted" href="/Customer/Index">Go back</a>
         </div>
     </fieldset>
 </form>

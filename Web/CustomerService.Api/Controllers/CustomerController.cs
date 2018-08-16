@@ -1,5 +1,4 @@
 ﻿using CustomerService.Api.Abstract;
-using CustomerService.Api.Filters;
 using CustomerService.Api.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -30,9 +29,13 @@ namespace CustomerService.Api.Controllers
         }
 
         [HttpPost]
-        [ValidateModelFilter]
         public async Task<IActionResult> Add([FromForm]AddCustomerViewModel model)
         {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             var result = await customerService.AddCustomerAsync(model);
 
             return RedirectToAction("Index");
@@ -47,9 +50,13 @@ namespace CustomerService.Api.Controllers
         }
 
         [HttpPost]
-        [ValidateModelFilter]
         public async Task<IActionResult> Edit([FromForm]EditCustomerViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             var result = await customerService.EditCustomerAsync(model);
 
             return RedirectToAction("Index");

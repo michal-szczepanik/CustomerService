@@ -3,32 +3,57 @@
     ViewData["Title"] = "Edit customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
- 
+
 <form asp-action="edit" method="post">
     <fieldset class="uk-fieldset">
         @Html.HiddenFor(model => model.Id)
 
         <div class="uk-margin">
-            <input class="uk-input" type="text" name="Name" value="@Model.Name">
+            <div class="uk-margin-small-top uk-margin-small-bottom">
+                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "uk-text-danger" })
+            </div>
+            <div class=" uk-margin-small-bottom">
+                @Html.LabelFor(model => model.Name, null, new { @class = "uk-text-muted" })
+            </div>
+            @Html.TextBoxFor(model => model.Name, null, new { @class = "uk-input", placeholder = "Name" })
         </div>
 
         <div class="uk-margin">
-            <input class="uk-input" type="text" name="Surname" value="@Model.Surname">
+            <div class="uk-margin-small-top uk-margin-small-bottom">
+                @Html.ValidationMessageFor(model => model.Surname, null, new { @class = "uk-text-danger" })
+            </div>
+            <div class=" uk-margin-small-bottom">
+                @Html.LabelFor(model => model.Surname, null, new { @class = "uk-text-muted" })
+            </div>
+            @Html.TextBoxFor(model => model.Surname, null, new { @class = "uk-input", placeholder = "Surname" })
         </div>
 
         <div class="uk-margin">
-            <input class="uk-input" type="text" name="TelephoneNumber" value="@Model.TelephoneNumber">
+            <div class="uk-margin-small-top uk-margin-small-bottom">
+                @Html.ValidationMessageFor(model => model.TelephoneNumber, null, new { @class = "uk-text-danger" })
+            </div>
+            <div class=" uk-margin-small-bottom">
+                @Html.LabelFor(model => model.TelephoneNumber, null, new { @class = "uk-text-muted" })
+            </div>
+            @Html.TextBoxFor(model => model.TelephoneNumber, null, new { @class = "uk-input", placeholder = "Telephone number" })
         </div>
 
         <div class="uk-margin">
-            <input class="uk-input" type="text" name="Address" value="@Model.Address">
+            <div class="uk-margin-small-top uk-margin-small-bottom">
+                @Html.ValidationMessageFor(model => model.Address, null, new { @class = "uk-text-danger" })
+            </div>
+            <div class=" uk-margin-small-bottom">
+                @Html.LabelFor(model => model.Address, null, new { @class = "uk-text-muted" })
+            </div>
+            @Html.TextBoxFor(model => model.Address, null, new { @class = "uk-input", placeholder = "Address" })
         </div>
 
         <div class="uk-margin-medium-top">
             <input type="submit" value="Save" class="uk-button uk-button-default" />
         </div>
+
         <div class="uk-margin-medium-top">
-            <a class="uk-link-muted" asp-action="Index">Go back</a>
+            <a class="uk-link-muted" href="/Customer/Index">Go back</a>
         </div>
     </fieldset>
 </form>
