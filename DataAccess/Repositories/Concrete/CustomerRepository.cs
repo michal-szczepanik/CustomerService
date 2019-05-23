@@ -9,73 +9,52 @@ namespace DataAccess.Repositories.Concrete
 {
     public class CustomerRepository : ICustomerRepository
     {
-        public async Task<IEnumerable<Customer>> GetCustomersAsync()
+        private readonly CustomerServiceContext context;
+
+        public CustomerRepository(CustomerServiceContext context)
         {
-            using (var ctx = new CustomerServiceContext())
-            {
-                return await ctx.Customers.ToListAsync();
-            }
+            this.context = context;
         }
+
+        public Task<List<Customer>> GetCustomersAsync() =>
+            context.Customers.ToListAsync();
 
         public async Task<Customer> AddCustomerAsync(Customer customer)
         {
-            using (var ctx = new CustomerServiceContext())
-            {
-                var result = ctx.Customers.Add(customer);
+            var result = context.Customers.Add(customer);
+            await context.SaveChangesAsync();
 
-                await ctx.SaveChangesAsync();
-
-                return result.Entity;
-            }
+            return result.Entity;
         }
 
         public async Task<Customer> EditCustomerAsync(Customer customer)
         {
-            using (var ctx = new CustomerServiceContext())
-            {
-                var entity = ctx.Customers.FirstOrDefault(x => x.Id == customer.Id);
+            var entity = context.Customers.FirstOrDefault(x => x.Id == customer.Id);
+            if (entity == null)
+                return null;
 
-                if(entity == null)
-                {
-                    return null;
-                }
+            entity.Name = customer.Name;
+            entity.Surname = customer.Surname;
+            entity.TelephoneNumber = customer.TelephoneNumber;
+            entity.Address = customer.Address;
+            await context.SaveChangesAsync();
 
-                entity.Name = customer.Name;
-                entity.Surname = customer.Surname;
-                entity.TelephoneNumber = customer.TelephoneNumber;
-                entity.Address = customer.Address;
-
-                await ctx.SaveChangesAsync();
-
-                return customer;
-            }
+            return customer;
         }
 
         public async Task<bool> DeleteCustomerAsync(string id)
         {
-            using (var ctx = new CustomerServiceContext())
-            {
-                var entity = ctx.Customers.FirstOrDefault(x => x.Id == id);
+            var entity = context.Customers.FirstOrDefault(x => x.Id == id);
+            if (entity == null)
+                return false;
 
-                if (entity == null)
-                {
-                    return false;
-                }
+            context.Customers.Remove(entity);
+            await context.SaveChangesAsync();
 
-                ctx.Customers.Remove(entity);
-
-                await ctx.SaveChangesAsync();
-
-                return true;
-            }
+            return true;
         }
 
-        public async Task<Customer> GetCustomerAsync(string id)
-        {
-            using (var ctx = new CustomerServiceContext())
-            {
-                return await ctx.Customers.FirstOrDefaultAsync(x => x.Id == id);
-            }
-        }
+        public Task<Customer> GetCustomerAsync(string id) =>
+            context.Customers.FirstOrDefaultAsync(x => x.Id == id);
     }
 }

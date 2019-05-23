@@ -5,11 +5,11 @@ namespace DataAccess
 {
     public class CustomerServiceContext : DbContext
     {
-        public DbSet<Customer> Customers { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public CustomerServiceContext(DbContextOptions<CustomerServiceContext> options)
+            : base(options)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=CustomerServiceDatabase;Trusted_Connection=True;");
         }
+
+        public DbSet<Customer> Customers { get; set; }
     }
 }

@@ -6,13 +6,26 @@ using Microsoft.AspNetCore.Hosting;
 using WebApp.Filters;
 using WebApp.Abstract;
 using WebApp.Services;
+using DataAccess;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace WebApp
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<CustomerServiceContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("CustomerServiceDb")));
+
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ICustomerService, CustomerService>();
 
@@ -20,12 +33,17 @@ namespace WebApp
                     .AddRazorPagesOptions(options => options.Conventions.AddPageRoute("/Customer/Index", ""));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<CustomerServiceContext>();
+                context.Database.EnsureCreated();
             }
 
             app.UseStaticFiles();

@@ -8,7 +8,7 @@ namespace DataAccess.Repositories.Abstract
     {
         Task<Customer> GetCustomerAsync(string id);
 
-        Task<IEnumerable<Customer>> GetCustomersAsync();
+        Task<List<Customer>> GetCustomersAsync();
 
         Task<Customer> AddCustomerAsync(Customer customer);
 
